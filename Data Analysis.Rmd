@@ -1,0 +1,33 @@
+---
+title: "Negative Incentive Framing Structures in Cognitively Demanding Tasks"
+author: "Tshering Wangchuk and Franco Salinas Meza"
+output: github_document
+bibliography: Library.bib
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, error = TRUE, warning = FALSE, message = FALSE)
+
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(stringr)
+library(ggplot2)
+library(sf)
+library(spdep)
+library(spatialreg)
+```
+
+```{r, results='hide'}
+experiment<- read.csv('/Users/francosalinas/Desktop/BEHAVIORAL/Experiment Docs/Data.csv')
+data<-as.data.frame(experiment)
+data_clean<- data %>% 
+  filter(SL<30) %>% 
+  select(-X,-X.1) 
+```
+
+```{r}
+
+lm(Correct~Gender+School_Year+English_Native,data = data_clean)
+```
+
