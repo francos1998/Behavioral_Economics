@@ -19,7 +19,7 @@ library(spatialreg)
 ```
 
 ```{r, results='hide'}
-experiment<- read.csv('/Users/francosalinas/Desktop/BEHAVIORAL/Experiment Docs/Data.csv')
+experiment<- read.csv('Data.csv')
 data<-as.data.frame(experiment)
 data_clean<- data %>% 
   filter(SL<30) %>% 
@@ -28,11 +28,10 @@ data_clean<- data %>%
 
 ```{r}
 
-
 data_clean %>% 
   filter(School_Year == 1)
 
-##Given the low number of first years we could create two variables, one that it lower and upper classman 
+##Given the low number of first years we could create two variables, one that it lower and upper classmen 
 
 data_clean<-data_clean %>% 
   mutate(school_status = ifelse(test = School_Year == 1|School_Year==2, yes = "Underclassmen",no = "Upperclassmen"))
