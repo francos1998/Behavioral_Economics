@@ -1,0 +1,44 @@
+﻿SL ,Gender,School_Year,Major,English_Native,International,Session,Incentive_Structure ,Guess,Number_of_Classes,Hours_of_Sleep,Workload ,Correct,Incorrect,Passage 1 ,Passage 2,,
+1,Male,2,Computer Science,No,Yes,1,Negative ,2,3,5,Large,4,8,6,1,,
+2,Male,4,Economics,Yes,No,1,Negative ,3,3,7,Large,3,9,6,6,,
+3,Female,4,Economics,Yes,No,1,Negative ,4,2,6,Large,3,9,6,4,,
+4,Male,2,Environmental Studies,Yes,No,1,Negative ,2,4,7,Large,2,10,6,0,,
+5,Female,3,Biology,Yes,No,1,Negative ,3,3,7,Large,6,6,6,6,,Male
+6,Male,2,Economics,Yes,No,1,Negative ,6,3,8,Small,4,8,6,6,,Female
+7,Female,2,Biology,Yes,No,1,Negative ,2,4,7,Small,2,10,6,6,,
+8,Male,4,Statistics,No,Yes,2,Negative ,5,2,3,Large,3,9,6,6,,
+9,Female,4,Political Science,Yes,No,2,Negative ,4,1,7,Small,2,10,6,4,,1
+10,Female,4,Computer Science,No,Yes,2,Negative ,0,0,6,Large,4,8,6,3,,2
+11,Male,1,Economics,Yes,No,3,Negative ,4,1,6,Small,4,8,6,6,,3
+12,Male,2,Chinese,Yes,No,3,Negative ,0,3,7,Large,5,7,6,3,,4
+13,Male,2,Economics,Yes,Yes,3,Negative ,5,2,6,Large,3,9,6,6,,
+14,Male,4,Economics,Yes,No,3,Negative ,6,2,5,Large,3,9,6,6,,Yes
+15,Male,3,Psychology,Yes,Yes,3,Negative ,2,2,7,Large,4,8,6,2,,No
+16,Female,2,Economics,Yes,No,1,Positive,1,1,5,Large,2,10,6,0,,
+17,Female,1,Political Science,Yes,No,1,Positive,0,2,8,Small,4,8,6,6,,Negative 
+18,Male,4,Economics,Yes,No,1,Positive,6,1,8,Large,1,11,2,6,,Positive
+19,Male,2,Environmental Studies,No,No,1,Positive,2,3,7,Small,3,9,6,6,,
+20,Male,2,Psychology,Yes,No,1,Positive,1,2,8,Small,2,10,6,6,,Large
+21,Female,3,Geology,Yes,No,1,Positive,2,3,11,Small,3,9,6,6,,Small
+22,Male,4,Neuroscience,No,No,3,Positive,0,2,8,Large,2,10,5,0,,
+23,Male,3,Neuroscience,Yes,No,3,Positive,3,2,4.5,Small,2,10,6,6,,
+24,Male,2,Economics,Yes,No,3,Positive,2,2,5.5,Large,4,8,4,3,,
+25,Female,2,Economics,No,Yes,3,Positive,3,2,5,Large,3,9,6,1,,
+26,Male,2,Biology,Yes,No,3,Positive,5,4,7,Large,4,8,6,3,,
+27,Female,4,Computer Science,Yes,Yes,2,Positive,4,1,8,Large,2,10,5,1,,
+28,Male,4,Geology,Yes,No,2,Positive,3,3,7,Small,3,9,6,6,,
+29,Female,2,Computer Science,No,Yes,2,Positive,2,1,6,Large,0,12,3,0,,
+30,Female,2,International Studies,No,Yes,3,Positive,2,1,7,Large,2,10,5,0,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
