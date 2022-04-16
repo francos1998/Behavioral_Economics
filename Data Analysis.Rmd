@@ -36,71 +36,76 @@ data_clean %>%
 data_clean<-data_clean %>% 
   mutate(school_status = ifelse(test = School_Year == 1|School_Year==2, yes = "Underclassmen",no = "Upperclassmen"))
 
-data_clean %>% 
-  ggplot(aes(x = Correct, y = factor(school_status)))+
-  geom_boxplot()
-
-##Maybe Group as Social Sciences, STEM. 
-data_clean %>% 
-  ggplot(aes(x = Correct, y = factor(Major)))+
-  geom_boxplot()
-
-
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = factor(English_Native)))+
-  geom_boxplot()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = factor(Incentive_Structure)))+
-  geom_boxplot()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = factor(International)))+
-  geom_boxplot()
-
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = Guess))+
-  geom_point()+
-  geom_smooth()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = Hours_of_Sleep))+
-  geom_point()+
-  geom_smooth()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = Number_of_Classes))+
-  geom_point()+
-  geom_smooth()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = Workload))+
-  geom_boxplot()
-
-data_clean %>% 
-  ggplot(aes(x = Correct, y = Gender))+
-  geom_boxplot()
-
-
-
-
-data_clean %>% 
-  filter(Major == "Political Science")
-
 
 data_clean %>% 
   count(Major)
 
 NEW_MAJOR_CATEGORY<-data_clean %>% 
-  mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","Stem","Social Science")) 
+  mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","Stem","Social Science")) %>% 
+  mutate(accuracy_rate = Correct/12, share_questions_responded = (Passage.1+Passage.2)/12)
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = Major_category,y = Correct))+
+  ggplot(aes(x = Major_category,y = accuracy_rate))+
+  geom_boxplot()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = factor(school_status)))+
+  geom_boxplot()
+
+##Maybe Group as Social Sciences, STEM. 
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = factor(Major)))+
   geom_boxplot()
 
 
-lm(Correct~Gender+factor(school_status)+English_Native ,data = data_clean)
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = factor(English_Native)))+
+  geom_boxplot()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
+  geom_boxplot()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = factor(International)))+
+  geom_boxplot()
+
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = Guess))+
+  geom_point()+
+  geom_smooth()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = Hours_of_Sleep))+
+  geom_point()+
+  geom_smooth()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = Number_of_Classes))+
+  geom_point()+
+  geom_smooth()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = Workload))+
+  geom_boxplot()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = accuracy_rate, y = Gender))+
+  geom_boxplot()
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
+  geom_boxplot()
+
+
+
+
+NEW_MAJOR_CATEGORY %>% 
+  filter(Major == "Political Science")
+
+
+lm(Correct~Gender+factor(school_status)+English_Native ,data = NEW_MAJOR_CATEGORY)
 ```
 
