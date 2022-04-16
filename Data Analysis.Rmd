@@ -99,6 +99,10 @@ NEW_MAJOR_CATEGORY %>%
   ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
   geom_boxplot()
 
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = share_questions_responded))+
+  geom_density()+
+  
 
 
 
@@ -106,6 +110,10 @@ NEW_MAJOR_CATEGORY %>%
   filter(Major == "Political Science")
 
 
-lm(Correct~Gender+factor(school_status)+English_Native ,data = NEW_MAJOR_CATEGORY)
+model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+summary(model1)
+model2<-lm(share_questions_responded~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+summary(model2)
+
 ```
 
