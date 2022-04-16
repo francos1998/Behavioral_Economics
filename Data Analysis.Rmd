@@ -90,6 +90,16 @@ data_clean %>%
   filter(Major == "Political Science")
 
 
+data_clean %>% 
+  count(Major)
+
+NEW_MAJOR_CATEGORY<-data_clean %>% 
+  mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","Stem","Social Science")) 
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = Major_category,y = Correct))+
+  geom_boxplot()
+
 
 lm(Correct~Gender+factor(school_status)+English_Native ,data = data_clean)
 ```
