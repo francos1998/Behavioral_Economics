@@ -16,6 +16,7 @@ library(ggplot2)
 library(sf)
 library(spdep)
 library(spatialreg)
+library(ggthemes)
 ```
 
 ```{r, results='hide'}
@@ -41,11 +42,12 @@ NEW_MAJOR_CATEGORY<-data_clean %>%
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = Major_category,y = accuracy_rate), fill = blue)+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 1: Accuracy Rate vs. Major Category",
        x=  "Major Category",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())+
+  theme_classic()
  
   
 
