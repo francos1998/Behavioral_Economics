@@ -24,90 +24,115 @@ data<-as.data.frame(experiment)
 data_clean<- data %>% 
   filter(SL<30) %>% 
   select(-X,-X.1) 
-```
-
-```{r}
-
-data_clean %>% 
-  filter(School_Year == 1)
 
 ##Given the low number of first years we could create two variables, one that it lower and upper classmen 
 
 data_clean<-data_clean %>% 
   mutate(school_status = ifelse(test = School_Year == 1|School_Year==2, yes = "Underclassmen",no = "Upperclassmen"))
 
-
-data_clean %>% 
-  count(Major)
+##Given the low number of subjects in certain majors I grouped them into Stem and Social Science
 
 NEW_MAJOR_CATEGORY<-data_clean %>% 
-  mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","Stem","Social Science")) %>% 
+  mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","STEM","Social Science")) %>% 
   mutate(accuracy_rate = Correct/12, share_questions_responded = (Passage.1+Passage.2)/12)
+```
+
+```{r}
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = Major_category,y = accuracy_rate))+
-  geom_boxplot()
+  ggplot(aes(x = Major_category,y = accuracy_rate), fill = blue)+
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 1: Accuracy Rate vs. Major Category",
+       x=  "Major Category",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+ 
+  
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = accuracy_rate, y = factor(school_status)))+
-  geom_boxplot()
-
-##Maybe Group as Social Sciences, STEM. 
-NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = accuracy_rate, y = factor(Major)))+
-  geom_boxplot()
-
+  ggplot(aes(y = accuracy_rate, x = factor(school_status)))+
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. School Year",
+       x=  "School Year",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
 
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = accuracy_rate, y = factor(English_Native)))+
-  geom_boxplot()
+  ggplot(aes(y = accuracy_rate, x = factor(English_Native)))+
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. Indicator of whether the Person is a Native Speaker",
+       x=  "Is the subject a Native Speaker?",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
-  geom_boxplot()
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. Incentive Structure",
+       x=  "Incentive Structure",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = accuracy_rate, y = factor(International)))+
-  geom_boxplot()
+  ggplot(aes(y = accuracy_rate, x = factor(International)))+
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. Indicator if it's an international Student",
+       x=  "Is the subject an International Student?",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
 
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Guess))+
   geom_point()+
-  geom_smooth()
+  labs(title = "Changes in accuracy rate with Number of Guesses")
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Hours_of_Sleep))+
   geom_point()+
-  geom_smooth()
+  labs(title = "Changes in accuracy rate with Hours of Sleep")
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Number_of_Classes))+
   geom_point()+
-  geom_smooth()
+  labs(title = "Changes in accuracy rate with Number of Classes")
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = accuracy_rate, y = Workload))+
-  geom_boxplot()
+  ggplot(aes(y = accuracy_rate, x = Workload))+
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. Workload",
+       x=  "Is the subject experiencing a large or small workload?",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Gender))+
-  geom_boxplot()
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Accuracy Rate vs. Indicator for Gender",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
-  geom_boxplot()
+  geom_boxplot(fill = "#33FFFF")+
+  labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = share_questions_responded))+
+  ggplot(aes(x = share_questions_responded, fill = "blue"))+
   geom_density()+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
   
-
-
-
-NEW_MAJOR_CATEGORY %>% 
-  filter(Major == "Political Science")
 
 
 model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
