@@ -132,8 +132,54 @@ NEW_MAJOR_CATEGORY %>%
        y=  "Probability",
        x=  "Number of questions responded")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
-  
 
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = Gender))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = Major_category))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = school_status))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = English_Native))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = International))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(x = Incentive_Structure))+
+  geom_bar(fill = "#33FFFF")+
+  labs(title = "Figure 2: Distribution of Share of Questions Responded",
+       y=  "Probability",
+       x=  "Number of questions responded")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
 
 model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
 summary(model1)
