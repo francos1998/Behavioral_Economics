@@ -46,147 +46,154 @@ NEW_MAJOR_CATEGORY %>%
   labs(title = "Figure 1: Accuracy Rate vs. Major Category",
        x=  "Major Category",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())+
   theme_classic()
  
   
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = factor(school_status)))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. School Year",
        x=  "School Year",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = factor(English_Native)))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator of whether the Person is a Native Speaker",
        x=  "Is the subject a Native Speaker?",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Incentive Structure",
        x=  "Incentive Structure",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = factor(International)))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator if it's an international Student",
        x=  "Is the subject an International Student?",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Guess))+
   geom_point()+
-  labs(title = "Changes in accuracy rate with Number of Guesses")
+  labs(title = "Changes in accuracy rate with Number of Guesses")+
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Hours_of_Sleep))+
   geom_point()+
-  labs(title = "Changes in accuracy rate with Hours of Sleep")
+  labs(title = "Changes in accuracy rate with Hours of Sleep")+
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Number_of_Classes))+
   geom_point()+
-  labs(title = "Changes in accuracy rate with Number of Classes")
+  labs(title = "Changes in accuracy rate with Number of Classes")+
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = accuracy_rate, x = Workload))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Workload",
        x=  "Is the subject experiencing a large or small workload?",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = accuracy_rate, y = Gender))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator for Gender",
        x=  "Is the subject male or female identifying?",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
-  geom_boxplot(fill = "#33FFFF")+
+  geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
        x=  "Is the subject male or female identifying?",
        y=  "Accuracy Rate")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
-  ggplot(aes(x = share_questions_responded, fill = "blue"))+
-  geom_density()+
+  ggplot(aes(x = share_questions_responded))+
+  geom_density(fill = "blue")+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = Gender))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
   
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = Major_category))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = school_status))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = English_Native))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = International))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 NEW_MAJOR_CATEGORY %>% 
   ggplot(aes(x = Incentive_Structure))+
-  geom_bar(fill = "#33FFFF")+
+  geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
        y=  "Probability",
        x=  "Number of questions responded")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.ticks.x = element_blank())
+  theme_classic()
 
 model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
 summary(model1)
 model2<-lm(share_questions_responded~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
 summary(model2)
+
+
+NEW_MAJOR_CATEGORY %>% 
+  select(accuracy_rate, Number_of_Classes, Hours_of_Sleep, share_questions_responded) %>% 
+  cor()
 
 ```
 
