@@ -185,15 +185,138 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
-summary(model1)
-model2<-lm(share_questions_responded~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
-summary(model2)
 
 
 NEW_MAJOR_CATEGORY %>% 
   select(accuracy_rate, Number_of_Classes, Hours_of_Sleep, share_questions_responded) %>% 
   cor()
+
+```
+
+## Understanding Factors that affect accuracy
+
+```{r}
+model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+summary(model1)
+```
+
+
+```{r}
+
+
+library(huxtable)
+
+huxreg(model1)
+
+
+# tab <- huxreg(model1,
+#               # Rename coefficients
+#               coefs = c("Incentive Structure" = "Incentive_StructurePositive", "Male" = "GenderMale", "Upperclassmen" = "factor(school_status)Upperclassmen","English Native Speaker" = "English_NativeYes"),
+#               # Add the desired summary statistics
+#               statistics = c(N = "nobs", R2 = "r.squared", p-value = ""),
+#               # Add a note
+#               note = "Note. Important note about this table") %>% 
+#   # Convert the huxtable table to flextable
+#   as_flextable()
+# 
+# # Set a custom width to ensure it fits on the page
+# tab %>% flextable::width(width = 1)
+
+```
+
+
+### Incentive Structure
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Accuracy Rate vs. Incentive Structure",
+       x=  "Incentive Structure",
+       y=  "Accuracy Rate")+
+  theme_classic()
+```
+
+### School Year Status
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = accuracy_rate, x = factor(school_status)))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Accuracy Rate vs. School Year",
+       x=  "School Year",
+       y=  "Accuracy Rate")+
+  theme_classic()
+```
+
+### English as a Native Language
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = accuracy_rate, x = factor(English_Native)))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Accuracy Rate vs. Indicator of whether the Person is a Native Speaker",
+       x=  "Is the subject a Native Speaker?",
+       y=  "Accuracy Rate")+
+  theme_classic()
+```
+
+
+## Understanding Factors that affect the share of questions responded: 
+
+```{r}
+model2<-lm(share_questions_responded~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+summary(model2)
+
+```
+
+```{r}
+huxreg(model2)
+```
+
+
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme_classic()
+
+```
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = share_questions_responded, x = Number_of_Classes))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme_classic()
+
+```
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = share_questions_responded, x = Hours_of_Sleep))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme_classic()
+
+```
+
+```{r}
+NEW_MAJOR_CATEGORY %>% 
+  ggplot(aes(y = share_questions_responded, x = Workload))+
+  geom_boxplot()+
+  labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
+       x=  "Is the subject male or female identifying?",
+       y=  "Accuracy Rate")+
+  theme_classic()
 
 ```
 
