@@ -2,7 +2,6 @@
 title: "Negative Incentive Framing Structures in Cognitively Demanding Tasks"
 author: "Tshering Wangchuk and Franco Salinas Meza"
 output: github_document
-bibliography: Library.bib
 ---
 
 ```{r include=FALSE}
@@ -196,7 +195,7 @@ NEW_MAJOR_CATEGORY %>%
 ## Understanding Factors that affect accuracy
 
 ```{r}
-model1 <- lm(accuracy_rate~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+model1 <- lm(accuracy_rate~Incentive_Structure*Gender+Gender+school_status+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
 summary(model1)
 ```
 
