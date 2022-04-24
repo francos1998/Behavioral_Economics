@@ -21,25 +21,43 @@ library(ggthemes)
 ```{r, results='hide'}
 experiment<- read.csv('Data.csv')
 data<-as.data.frame(experiment)
-data_clean<- data %>% 
+data_1 <- data %>% 
   filter(SL<30) %>% 
   select(-X,-X.1) 
 
 ##Given the low number of first years we could create two variables, one that it lower and upper classmen 
 
-data_clean<-data_clean %>% 
+data_school_year<-data_1 %>% 
   mutate(school_status = ifelse(test = School_Year == 1|School_Year==2, yes = "Underclassmen",no = "Upperclassmen"))
 
 ##Given the low number of subjects in certain majors I grouped them into Stem and Social Science
 
-NEW_MAJOR_CATEGORY<-data_clean %>% 
+data_major_category<-data_school_year%>% 
   mutate(Major_category = ifelse(Major=="Biology"|Major=="Computer Science"|Major=="Geology"|Major=="Neuroscience"|Major=="Statistics","STEM","Social Science")) %>% 
   mutate(accuracy_rate = Correct/12, share_questions_responded = (Passage.1+Passage.2)/12)
+
+data_final <- data_major_category %>% 
+  mutate(Gender = as.factor(Gender), 
+         English_Native = as.factor(English_Native), 
+         International = as.factor(International),
+         Incentive_Structure = as.factor(Incentive_Structure),
+         Workload = as.factor(Workload),
+         school_status = as.factor(school_status), 
+         Major_category = as.factor(Major_category))
+
+data_correlation <- data_major_category %>% 
+  mutate(Gender = ifelse(Gender== "Female" ,1,0),
+         English_Native = ifelse(English_Native == "Yes",1, 0), 
+         International = ifelse(International == "Yes",1,0),
+         Incentive_Structure = ifelse(Incentive_Structure == "Positive",1,0),
+         Workload = ifelse(Workload=="Large",1,0),
+         school_status = ifelse(school_status == "Upperclassmen",1,0), 
+         Major_category = ifelse(Major_category == "STEM",1,0))
 ```
 
 ```{r}
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = Major_category,y = accuracy_rate), fill = blue)+
   geom_boxplot()+
   labs(title = "Figure 1: Accuracy Rate vs. Major Category",
@@ -49,7 +67,7 @@ NEW_MAJOR_CATEGORY %>%
  
   
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(school_status)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. School Year",
@@ -58,7 +76,7 @@ NEW_MAJOR_CATEGORY %>%
   theme_classic()
 
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(English_Native)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator of whether the Person is a Native Speaker",
@@ -67,7 +85,7 @@ NEW_MAJOR_CATEGORY %>%
   theme_classic()
 
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Incentive Structure",
@@ -76,7 +94,7 @@ NEW_MAJOR_CATEGORY %>%
   theme_classic()
 
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(International)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator if it's an international Student",
@@ -86,25 +104,25 @@ NEW_MAJOR_CATEGORY %>%
 
 
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = accuracy_rate, y = Guess))+
   geom_point()+
   labs(title = "Changes in accuracy rate with Number of Guesses")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = accuracy_rate, y = Hours_of_Sleep))+
   geom_point()+
   labs(title = "Changes in accuracy rate with Hours of Sleep")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = accuracy_rate, y = Number_of_Classes))+
   geom_point()+
   labs(title = "Changes in accuracy rate with Number of Classes")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = Workload))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Workload",
@@ -112,7 +130,7 @@ NEW_MAJOR_CATEGORY %>%
        y=  "Accuracy Rate")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = accuracy_rate, y = Gender))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator for Gender",
@@ -120,7 +138,7 @@ NEW_MAJOR_CATEGORY %>%
        y=  "Accuracy Rate")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
   geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
@@ -128,7 +146,7 @@ NEW_MAJOR_CATEGORY %>%
        y=  "Accuracy Rate")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = share_questions_responded))+
   geom_density(fill = "blue")+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -136,7 +154,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = Gender))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -144,7 +162,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
   
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = Major_category))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -152,7 +170,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = school_status))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -160,7 +178,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = English_Native))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -168,7 +186,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = International))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -176,7 +194,7 @@ NEW_MAJOR_CATEGORY %>%
        x=  "Number of questions responded")+
   theme_classic()
 
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(x = Incentive_Structure))+
   geom_bar()+
   labs(title = "Figure 2: Distribution of Share of Questions Responded",
@@ -186,17 +204,48 @@ NEW_MAJOR_CATEGORY %>%
 
 
 
-NEW_MAJOR_CATEGORY %>% 
-  select(accuracy_rate, Number_of_Classes, Hours_of_Sleep, share_questions_responded) %>% 
+
+
+data_correlation %>% 
+  select(Gender, Number_of_Classes, share_questions_responded, English_Native,Incentive_Structure,Guess) %>% 
   cor()
 
 ```
 
+Insights: 
+  
+  Model 1: Criteria(correlation larger than 0.1 or smalled than -0.1), I realized that variables with correlation that is lower than 0.3 or larger than -0.3 didn't have an important impact on the model.
+    
+    Gender 
+    Number_of_Classes 
+    share_questions_responded 
+    English_Native 
+    Incentive_Structure  
+    Guess
 ## Understanding Factors that affect accuracy
 
+Notes: 
+  English native increased our p value by a lot 
+  Gender increased by a little
+  Number of classes incrased p value by a lot 
+  
+  
 ```{r}
-model1 <- lm(accuracy_rate~Incentive_Structure*Gender+Gender+school_status+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+
+
+model1 <- lm(accuracy_rate~Incentive_Structure+Gender+Number_of_Classes+ share_questions_responded+English_Native+Guess ,data = data_final)
+
+model_one_variable <- lm(accuracy_rate~Incentive_Structure,data = data_final)
+
+
+
+# model1 <- lm(accuracy_rate~Incentive_Structure*Gender+Gender+school_status+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = data_final)
 summary(model1)
+summary(model_one_variable)
+
+plot(resid(model1))
+plot(resid(model_one_variable))
+
 ```
 
 
@@ -227,7 +276,7 @@ huxreg(model1)
 ### Incentive Structure
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(Incentive_Structure)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Incentive Structure",
@@ -239,7 +288,7 @@ NEW_MAJOR_CATEGORY %>%
 ### School Year Status
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(school_status)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. School Year",
@@ -251,7 +300,7 @@ NEW_MAJOR_CATEGORY %>%
 ### English as a Native Language
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = accuracy_rate, x = factor(English_Native)))+
   geom_boxplot()+
   labs(title = "Figure 2: Accuracy Rate vs. Indicator of whether the Person is a Native Speaker",
@@ -264,10 +313,34 @@ NEW_MAJOR_CATEGORY %>%
 ## Understanding Factors that affect the share of questions responded: 
 
 ```{r}
-model2<-lm(share_questions_responded~Incentive_Structure+Gender+factor(school_status)+English_Native+Number_of_Classes+Hours_of_Sleep+Workload+Major_category+share_questions_responded,data = NEW_MAJOR_CATEGORY)
+data_correlation %>% 
+  select(share_questions_responded,accuracy_rate, English_Native,International,Incentive_Structure,Workload) %>% 
+  cor()
+```
+
+Accuracy rate
+English_Native 
+International 
+Workload 
+Incentive structure
+
+
+
+
+
+```{r}
+
+model2<-lm(share_questions_responded~accuracy_rate+Incentive_Structure+English_Native+International+Workload,data = data_final)
 summary(model2)
 
+
+plot(resid(model2))
+
 ```
+
+
+
+
 
 ```{r}
 huxreg(model2)
@@ -276,7 +349,7 @@ huxreg(model2)
 
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = share_questions_responded, x = Incentive_Structure))+
   geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
@@ -287,7 +360,7 @@ NEW_MAJOR_CATEGORY %>%
 ```
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = share_questions_responded, x = Number_of_Classes))+
   geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
@@ -298,7 +371,7 @@ NEW_MAJOR_CATEGORY %>%
 ```
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = share_questions_responded, x = Hours_of_Sleep))+
   geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
@@ -309,7 +382,7 @@ NEW_MAJOR_CATEGORY %>%
 ```
 
 ```{r}
-NEW_MAJOR_CATEGORY %>% 
+data_final %>% 
   ggplot(aes(y = share_questions_responded, x = Workload))+
   geom_boxplot()+
   labs(title = "Figure 2: Share of Questions Responded vs. Incentive Structure",
