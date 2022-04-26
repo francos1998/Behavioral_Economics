@@ -22,7 +22,7 @@ library(ggthemes)
 experiment<- read.csv('Data.csv')
 data<-as.data.frame(experiment)
 data_1 <- data %>% 
-  filter(SL<30) %>% 
+  filter(SL<31) %>% 
   select(-X,-X.1) 
 
 ##Given the low number of first years we could create two variables, one that it lower and upper classmen 
@@ -157,49 +157,43 @@ data_final %>%
 data_final %>% 
   ggplot(aes(x = Gender))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "Gender Representation",
+       y=  "Count")+
   theme_classic()
   
 data_final %>% 
   ggplot(aes(x = Major_category))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "Major Category Representation",
+       y=  "Count")+
   theme_classic()
 
 data_final %>% 
   ggplot(aes(x = school_status))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "School Status Representation",
+       y=  "Count")+
   theme_classic()
 
 data_final %>% 
   ggplot(aes(x = English_Native))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "Representation of Native English Speakers",
+       y=  "Count")+
   theme_classic()
 
 data_final %>% 
   ggplot(aes(x = International))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "Representation of International Students",
+       y=  "Count")+
   theme_classic()
 
 data_final %>% 
   ggplot(aes(x = Incentive_Structure))+
   geom_bar()+
-  labs(title = "Figure 2: Distribution of Share of Questions Responded",
-       y=  "Probability",
-       x=  "Number of questions responded")+
+  labs(title = "Representation of both Incentive Structures",
+       y=  "Count")+
   theme_classic()
 
 
@@ -207,14 +201,14 @@ data_final %>%
 
 
 data_correlation %>% 
-  select(Gender, Number_of_Classes, share_questions_responded, English_Native,Incentive_Structure,Guess) %>% 
+  select(accuracy_rate, Gender, Number_of_Classes, share_questions_responded, English_Native,Incentive_Structure,Guess) %>% 
   cor()
 
 ```
 
 Insights: 
   
-  Model 1: Criteria(correlation larger than 0.1 or smalled than -0.1), I realized that variables with correlation that is lower than 0.3 or larger than -0.3 didn't have an important impact on the model.
+  Model 1: Criteria(correlation larger than 0.1 or smaller than -0.1), I realized that variables with correlation that is lower than 0.3 or larger than -0.3 didn't have an important impact on the model.
     
     Gender 
     Number_of_Classes 
@@ -230,6 +224,10 @@ Notes:
   Number of classes incrased p value by a lot 
   
   
+$$E[\text{Accuracy Rate}] = \beta_0+ \beta_1*\text{Incentive Structure}$$
+
+$$E[\text{Accuracy Rate}] = \beta_0+ \beta_1*\text{Incentive Structure}+\beta_2*\text{Gender}+\beta_3*\text{Number of Classes}+\beta_4*\text{Share of Questions Responded}+\beta_5*\text{English Native}+\beta_6*\text{Number of Guesses}$$
+  
 ```{r}
 
 
@@ -243,8 +241,24 @@ model_one_variable <- lm(accuracy_rate~Incentive_Structure,data = data_final)
 summary(model1)
 summary(model_one_variable)
 
-plot(resid(model1))
-plot(resid(model_one_variable))
+
+data_final %>% 
+  mutate(predicted = predict(model1), residual = accuracy_rate - predicted) %>% 
+  ggplot(aes(x=predicted, y=residual)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, color = "red") + 
+  theme_classic()+
+  labs(title= "Figure 2", subtitle = "Residual Plot",x = "Residuals", y = "Predictions")+
+  scale_color_viridis_d(alpha = 1)
+
+data_final %>% 
+  mutate(predicted = predict(model_one_variable), residual = accuracy_rate - predicted) %>% 
+  ggplot(aes(x=predicted, y=residual)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, color = "red") + 
+  theme_classic()+
+  labs(title= "Figure 2", subtitle = "Residual Plot",x = "Residuals", y = "Predictions")+
+  scale_color_viridis_d(alpha = 1)
 
 ```
 
@@ -254,8 +268,10 @@ plot(resid(model_one_variable))
 
 library(huxtable)
 
-huxreg(model1)
-
+huxreg(model1, model_one_variable, error_format = "[{p.value}]") %>% map_background_color(-1, -1, by_regex(
+        "\\*" = "yellow"
+      )) %>% 
+      set_caption("Linear regressions of accuracy rates")
 
 # tab <- huxreg(model1,
 #               # Rename coefficients
@@ -269,6 +285,7 @@ huxreg(model1)
 # 
 # # Set a custom width to ensure it fits on the page
 # tab %>% flextable::width(width = 1)
+data_final %>% dim()
 
 ```
 
@@ -314,7 +331,7 @@ data_final %>%
 
 ```{r}
 data_correlation %>% 
-  select(share_questions_responded,accuracy_rate, English_Native,International,Incentive_Structure,Workload) %>% 
+  select(share_questions_responded,accuracy_rate, English_Native,International,Incentive_Structure,Workload, Gender) %>% 
   cor()
 ```
 
@@ -325,7 +342,7 @@ Workload
 Incentive structure
 
 
-
+$$E[\text{Share of Questions Responded}] = \beta_0+ \beta_1*\text{Accuracy Rate}+\beta_2*\text{Incentive Structure}+\beta_3*\text{English Native Speaker}+\beta_4*\text{International Student}+\beta_5*\text{Workload}$$
 
 
 ```{r}
@@ -336,6 +353,15 @@ summary(model2)
 
 plot(resid(model2))
 
+data_final %>% 
+  mutate(predicted = predict(model2), residual = share_questions_responded - predicted) %>% 
+  ggplot(aes(x=predicted, y=residual)) +
+  geom_point() + 
+  geom_hline(yintercept = 0, color = "red") + 
+  theme_classic()+
+  labs(title= "Figure 2", subtitle = "Residual Plot",x = "Residuals", y = "Predictions")+
+  scale_color_viridis_d(alpha = 1)
+
 ```
 
 
@@ -343,7 +369,11 @@ plot(resid(model2))
 
 
 ```{r}
-huxreg(model2)
+
+huxreg(model2, error_format = "[{p.value}]") %>% map_background_color(-1, -1, by_regex(
+        "\\*" = "yellow"
+      )) %>% 
+      set_caption("Linear regressions of Share of questions Responded")
 ```
 
 
