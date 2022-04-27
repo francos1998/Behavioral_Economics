@@ -56,7 +56,9 @@ data_correlation <- data_major_category %>%
 ```
 
 ```{r}
-
+data_final %>% 
+  filter(Incentive_Structure == "Positive") %>% 
+  count(Gender =="Female")
 data_final %>% 
   ggplot(aes(x = Major_category,y = accuracy_rate), fill = blue)+
   geom_boxplot()+
