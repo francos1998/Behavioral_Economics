@@ -284,7 +284,7 @@ data_final %>%
 
 
 ```{r mylatextable, results = "asis"}
-stargazer(model6, model5, model4, model3, model2, model1, type = 'latex', column.sep.width = "1pt", font.size= "tiny")
+stargazer(model6, model5, model4, model3, model2, model1, type = 'latex', column.sep.width = "1pt", font.size= "tiny", covariate.labels = c("Positive Incentive Structure","Gender Male", "Number of Classes", "Share of questions responded", "Native English Speaker", "Number of Guesses", "(Intercept)"),dep.var.labels = "Share of correct answers", title = "Share of correct answers and Controls")
 
 ```
 
@@ -346,7 +346,12 @@ $$E[\text{Share of Questions Responded}] = \beta_0+ \beta_1*\text{Accuracy Rate}
 
 ```{r}
 
-model2<-lm(share_questions_responded~accuracy_rate+Incentive_Structure+English_Native+International+Workload,data = data_final)
+model_share1<-lm(share_questions_responded~Incentive_Structure,data = data_final)
+model_share2<-lm(share_questions_responded~Incentive_Structure+ accuracy_rate,data = data_final)
+model_share3<-lm(share_questions_responded~Incentive_Structure+ accuracy_rate+English_Native,data = data_final)
+model_share4<-lm(share_questions_responded~Incentive_Structure+ accuracy_rate+English_Native+International,data = data_final)
+model_share5<-lm(share_questions_responded~Incentive_Structure+ accuracy_rate+English_Native+International+Workload,data = data_final)
+
 summary(model2)
 
 
@@ -362,6 +367,15 @@ data_final %>%
   scale_color_viridis_d(alpha = 1)
 
 ```
+```{r}
+summary(model_share5)
+```
+
+```{r latextable2, results = "asis"}
+stargazer(model_share5, model_share4, model_share3, model_share2, model_share1, type = 'latex', column.sep.width = "1pt", font.size= "tiny", covariate.labels = c("Positive Incentive Structure","Share of correct questions", "Native English Speaker", "International Student", "Small Workload","(Intercept)"),dep.var.labels = "Share of answers responded", title = "Share of answers responded and Controls")
+
+```
+
 
 
 ```{r}

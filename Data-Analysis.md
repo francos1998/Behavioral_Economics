@@ -2,6 +2,10 @@ Negative Incentive Framing Structures in Cognitively Demanding Tasks
 ================
 Tshering Wangchuk and Franco Salinas Meza
 
+    ##   Gender == "Female" n
+    ## 1              FALSE 8
+    ## 2               TRUE 7
+
 ![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-5.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-6.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-7.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-8.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-9.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-10.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-11.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-12.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-13.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-14.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-15.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-16.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-17.png)<!-- -->![](Data-Analysis_files/figure-gfm/unnamed-chunk-3-18.png)<!-- -->
 
     ##                           accuracy_rate     Gender Number_of_Classes
@@ -128,6 +132,67 @@ a little Number of classes incrased p value by a lot
 Column names: names, model1, model2
 
     ## [1] 30 20
+
+    ## 
+    ## Call:
+    ## lm(formula = accuracy_rate ~ Incentive_Structure + Gender + Number_of_Classes + 
+    ##     share_questions_responded + English_Native + Guess, data = data_final)
+    ## 
+    ## Coefficients:
+    ##                 (Intercept)  Incentive_StructurePositive  
+    ##                    0.178446                    -0.068484  
+    ##                  GenderMale            Number_of_Classes  
+    ##                    0.009252                     0.014368  
+    ##   share_questions_responded            English_NativeYes  
+    ##                    0.131112                     0.004527  
+    ##                       Guess  
+    ##                   -0.014304
+
+    ## 
+    ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
+    ## % Date and time: Fri, Apr 29, 2022 - 15:39:06
+    ## \begin{table}[!htbp] \centering 
+    ##   \caption{Regression Results} 
+    ##   \label{} 
+    ## \begin{tabular}{@{\extracolsep{5pt}}lc} 
+    ## \\[-1.8ex]\hline 
+    ## \hline \\[-1.8ex] 
+    ##  & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+    ## \cline{2-2} 
+    ## \\[-1.8ex] & accuracy\_rate \\ 
+    ## \hline \\[-1.8ex] 
+    ##  Incentive\_StructurePositive & $-$0.068$^{*}$ \\ 
+    ##   & (0.036) \\ 
+    ##   & \\ 
+    ##  GenderMale & 0.009 \\ 
+    ##   & (0.038) \\ 
+    ##   & \\ 
+    ##  Number\_of\_Classes & 0.014 \\ 
+    ##   & (0.019) \\ 
+    ##   & \\ 
+    ##  share\_questions\_responded & 0.131 \\ 
+    ##   & (0.088) \\ 
+    ##   & \\ 
+    ##  English\_NativeYes & 0.005 \\ 
+    ##   & (0.043) \\ 
+    ##   & \\ 
+    ##  Guess & $-$0.014 \\ 
+    ##   & (0.011) \\ 
+    ##   & \\ 
+    ##  Constant & 0.178$^{**}$ \\ 
+    ##   & (0.076) \\ 
+    ##   & \\ 
+    ## \hline \\[-1.8ex] 
+    ## Observations & 30 \\ 
+    ## R$^{2}$ & 0.339 \\ 
+    ## Adjusted R$^{2}$ & 0.166 \\ 
+    ## Residual Std. Error & 0.093 (df = 23) \\ 
+    ## F Statistic & 1.962 (df = 6; 23) \\ 
+    ## \hline 
+    ## \hline \\[-1.8ex] 
+    ## \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+    ## \end{tabular} 
+    ## \end{table}
 
 ### Incentive Structure
 
